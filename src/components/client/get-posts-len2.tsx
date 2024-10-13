@@ -5,7 +5,7 @@ import { useCustomActionState } from "@/hooks/use-custom-action-state";
 import ServerActionState from "./server-action-state"; // Adjust path as necessary
 
 export default function GetPostsLen2() {
-  const [state, run, isPending] = useCustomActionState<number>(
+  const { state, run, isPending } = useCustomActionState<number>(
     async () => {
       const length = await fetchPostsLength();
       return length;

@@ -10,7 +10,7 @@ export interface State<TData> {
 export function useCustomActionState<TData>(
   action: () => Promise<TData>,
   initialState: State<TData>
-): [State<TData>, () => void, boolean] {
+): {state : State<TData>, run : () => void, isPending : boolean} {
   const [state, setState] = useState<State<TData>>(initialState);
   const [isPending, startTransition] = useTransition();
 
@@ -25,5 +25,5 @@ export function useCustomActionState<TData>(
     });
   };
 
-  return [state, run, isPending];
+  return {state, run, isPending};
 }
