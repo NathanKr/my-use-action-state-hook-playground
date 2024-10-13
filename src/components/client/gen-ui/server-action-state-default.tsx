@@ -3,11 +3,13 @@ import { FC } from "react";
 import ServerActionStateGen from "./server-action-state-gen";
 import { Alert, CircularProgress } from "@mui/material";
 
-const ServerActionStateDefault: FC<IServerActionStateDefault> = ({
+const ServerActionStateDefault: FC<IServerActionStateDefault<unknown>> = ({
   isPending,
-  error,
+  state,
   successComponent,
 }) => {
+  const {error} = state;
+  
   const loadingComponent = (
     <p>
       Loading ...
@@ -24,7 +26,7 @@ const ServerActionStateDefault: FC<IServerActionStateDefault> = ({
       errorComponent={errorComponent}
       loadingComponent={loadingComponent}
       isPending={isPending}
-      error={error}
+      state={state}
     />
   );
 };

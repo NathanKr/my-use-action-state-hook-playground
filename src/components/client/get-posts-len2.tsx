@@ -19,11 +19,11 @@ export default function GetPostsLen2() {
       <button onClick={run}>Get posts length</button>
       <ServerActionStateDefault
         isPending={isPending}
-        error={state.error}
+        state={state}
         successComponent={
           <div>
             <Alert severity="success">Operation successful!</Alert>
-            {state.data !== null && <p>Posts length: {state.data}</p>}
+            {<p>Posts length: {state.data}</p>}
           </div>
         }
       />

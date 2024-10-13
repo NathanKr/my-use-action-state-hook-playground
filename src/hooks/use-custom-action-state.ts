@@ -1,10 +1,5 @@
+import { State } from "@/types/types";
 import { useState, useTransition } from "react";
-
-// Define the type for the state
-export interface State<TData> {
-  data: TData | null;
-  error: Error | null; // Error is part of typescript - lib.es5.d.ts interface Error  name: string; message: string;  stack?: string;
-}
 
 // Create the custom hook
 export function useCustomActionState<TData>(
