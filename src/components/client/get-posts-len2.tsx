@@ -2,6 +2,7 @@
 
 import { fetchPostsLength } from "@/actions/actions";
 import { useCustomActionState } from "@/hooks/use-custom-action-state";
+import ServerActionState from "./server-action-state"; // Adjust path as necessary
 
 export default function GetPostsLen2() {
   const [state, run, isPending] = useCustomActionState<number>(
@@ -15,11 +16,18 @@ export default function GetPostsLen2() {
   return (
     <div>
       <button onClick={run}>Get posts length</button>
-      {isPending && <p>Loading...</p>}
-      {state.error && <p>Error: {state.error.message}</p>}
-      {state.data !== null && !isPending && !state.error && (
-        <p>Posts length: {state.data}</p>
-      )}
+      <ServerActionState
+        isPending={isPending}
+        error={state.error}
+        loadingComponent={<p>Loading...</p>}
+        errorComponent={<p>Error: {state.error?.message}</p>}
+        successComponent={
+          <div>
+            <p>Operation successful!</p>
+            {state.data !== null && <p>Posts length: {state.data}</p>}
+          </div>
+        }
+      />
     </div>
   );
 }

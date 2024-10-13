@@ -1,7 +1,7 @@
 
 
 <h2 id="project-description">Project Description</h2>
-<p>A concise and informative summary of the project's purpose, key features, and target audience.</p>
+A next.js project with server action that is invoked using generic custom hook and consumed by a generic component
 
 <h2 id="motivation">Motivation</h2>
 i want to use useActionState check <a href='https://github.com/NathanKr/use-action-state-hook-playground'>use-action-state-hook-playground</a> 
@@ -9,45 +9,105 @@ for generic error \ loading of server action <a href='https://github.com/NathanK
 but useActionState does not work in next.js so i want to do my simplified version
 
 <h2 id="installation">Installation</h2>
-<p>Step-by-step instructions on how to set up the development environment and install necessary dependencies. </p>
 
+```bash
+pnpm i
+```
+
+You can use also npm
 
 <h2 id="usage">Usage</h2>
-<p>Instructions on how to use the project, including examples, screenshots, or code snippets</p>
 
+<h3>Development server</h3>
+Invoke the development server using
 
-<h2 id="design">Design</h2>
-<p>A high-level overview of the project's architecture, design patterns, and key components.</p>
+```bash
+npm run dev
+```
 
-<h2 id="technologies-used">Technologies Used</h2>
+<h3>logic - useCustomActionState</h3>
+
+```tsx
+ const [state, run, isPending] = useCustomActionState<number>(
+    async () => {
+      const length = await fetchPostsLength();
+      return length;
+    },
+    { data: null, error: null }
+  );
+```
+
+<h3>ui - ServerActionState </h3>
+
+```tsx
+    <div>
+      <button onClick={run}>Get posts length</button>
+      <ServerActionState
+        isPending={isPending}
+        error={state.error}
+        loadingComponent={<p>Loading...</p>}
+        errorComponent={<p>Error: {state.error?.message}</p>}
+        successComponent={
+          <div>
+            <p>Operation successful!</p>
+            {state.data !== null && <p>Posts length: {state.data}</p>}
+          </div>
+        }
+      />
+    </div>
+```
+
+<h2 id="design">Design pros</h2>
+<ol>
+<li>seperation of concerns
+<p>logic - useCustomActionState</p>
+<p>ui - ServerActionState</p></li>
+<li>seperate action state to two :  error : bad  and data : good</li>
+<li>out of the box handle exception in server action</li>
+<li>use typescript interface for Error : 
+
+```ts
+interface Error {
+    name: string;
+    message: string;
+    stack?: string;
+}
+```
+
+This is actually used commonly to throw exception 
+
+```ts
+throw new Error("Something went wrong!")
+```
+
+</li>
+</ol>
+
+<h2>How to handle error in server action</h2>
+suppose you have an error in server action - how to handle it ?
 <ul>
-    <li>Frontend technologies (e.g., React, Vue, Angular)</li>
-    <li>Backend technologies (e.g., Node.js, Python, Ruby)</li>
-    <li>Databases (e.g., MySQL, PostgreSQL, MongoDB)</li>
-    <li>Cloud platforms (if applicable)</li>
+<li>if your server action throw and error than it is handled out ofthe box by this design</li>
+<li>if your server action fail and return an error inside data - you have two options
+<ul>
+<li>handle it as data in the ui (in this case data is not only good)</li> 
+<li>create a wrapper around your server action and throw excpetion in ase of error (in this case data is kept strickly good)</li> 
+</ul>
+</li>
 </ul>
 
-<h2 id="code-structure">Code Structure</h2>
-<p>An explanation of the project's code structure, including important files and directories.</p>
-
 <h2 id="demo">Demo</h2>
-<p>A link to a live demo or a GIF/video showcasing the project's functionality.</p>
+.............
 <ul>
-    <li>Live demo link</li>
-    <li>GIF or video demonstration</li>
+    <li>.........</li>
 </ul>
 
 <h2 id="points-of-interest">Points of Interest</h2>
 <ul>
-    <li>Innovative features</li>
-    <li>Technical challenges and solutions</li>
-    <li>Lessons learned</li>
+    <li>.....</li>
 </ul>
 
 <h2 id="references">References</h2>
 <ul>
-    <li>External libraries or frameworks</li>
-    <li>Articles or tutorials</li>
-    <li>Other relevant resources</li>
+    <li>..........</li>
 </ul>
 
