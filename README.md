@@ -63,6 +63,7 @@ npm run dev
 <p>logic - useCustomActionState</p>
 <p>ui - ServerActionState</p></li>
 <li>seperate action state to two :  error : bad  and data : good</li>
+<li>the server action is invoked at lower priorirty using transition, this will allow input fields to be more responsive</li>
 <li>out of the box handle exception in server action</li>
 <li>use typescript interface for Error : 
 
@@ -82,6 +83,32 @@ throw new Error("Something went wrong!")
 
 </li>
 </ol>
+
+<h2>Code - useCustomActionState</h2>
+
+```ts
+export function useCustomActionState<TData>(
+  action: () => Promise<TData>,
+  initialState: State<TData>
+): [State<TData>, () => void, boolean] {
+  const [state, setState] = useState<State<TData>>(initialState);
+  const [isPending, startTransition] = useTransition();
+
+  const run = () => {
+    startTransition(async () => {
+      try {
+        const data = await action();
+        setState({ data, error: null });
+      } catch (error) {
+        setState({ data: null, error: error as Error });
+      }
+    });
+  };
+
+  return [state, run, isPending];
+}
+
+```
 
 <h2>How to handle error in server action</h2>
 suppose you have an error in server action - how to handle it ?
@@ -108,6 +135,6 @@ suppose you have an error in server action - how to handle it ?
 
 <h2 id="references">References</h2>
 <ul>
-    <li>..........</li>
+    <li><a href='https://youtu.be/IBZ4esQbKjw?si=XZTIV2mNYLDOVP-w'>Boost React UI Responsiveness with useTransition!</a> - Learn how to use the hook useTransition in 4 minutes</li>
 </ul>
 
