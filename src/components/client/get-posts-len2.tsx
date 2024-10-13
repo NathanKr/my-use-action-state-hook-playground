@@ -2,7 +2,8 @@
 
 import { fetchPostsLength } from "@/actions/actions";
 import { useCustomActionState } from "@/hooks/use-custom-action-state";
-import ServerActionState from "./server-action-state"; // Adjust path as necessary
+import ServerActionStateDefault from "./gen-ui/server-action-state-default";
+import { Alert } from "@mui/material";
 
 export default function GetPostsLen2() {
   const { state, run, isPending } = useCustomActionState<number>(
@@ -16,14 +17,12 @@ export default function GetPostsLen2() {
   return (
     <div>
       <button onClick={run}>Get posts length</button>
-      <ServerActionState
+      <ServerActionStateDefault
         isPending={isPending}
         error={state.error}
-        loadingComponent={<p>Loading...</p>}
-        errorComponent={<p>Error: {state.error?.message}</p>}
         successComponent={
           <div>
-            <p>Operation successful!</p>
+            <Alert severity="success">Operation successful!</Alert>
             {state.data !== null && <p>Posts length: {state.data}</p>}
           </div>
         }
