@@ -1,9 +1,9 @@
-
-import { State, useCustomActionState } from '../src/hooks/use-custom-action-state';
-import { renderHook, act } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-
-
+import {
+  State,
+  useCustomActionState,
+} from "../src/hooks/use-custom-action-state";
+import { renderHook, act , waitFor} from "@testing-library/react";
+import { describe, test, expect } from "vitest";
 
 // Mock success action
 const mockSuccessAction = async () => {
@@ -15,12 +15,13 @@ const mockSuccessAction = async () => {
 // Mock failure action
 const mockFailureAction = async () => {
   return new Promise<number>((_, reject) => {
-    setTimeout(() => reject(new Error('Action failed')), 100); // Simulate async action failure
+    setTimeout(() => reject(new Error("Action failed")), 100); // Simulate async action failure
   });
 };
 
-describe('useCustomActionState', () => {
-  it('should initialize with the given initial state', () => {
+describe("useCustomActionState", () => {
+ 
+  test("should initialize with the given initial state", () => {
     const initialState: State<number> = { data: null, error: null };
 
     const { result } = renderHook(() =>
@@ -31,7 +32,7 @@ describe('useCustomActionState', () => {
     expect(result.current.isPending).toBe(false);
   });
 
-  it('should update state with data when action resolves successfully', async () => {
+  test("should update state with data when action resolves successfully", async () => {
     const initialState: State<number> = { data: null, error: null };
 
     const { result } = renderHook(() =>
@@ -52,7 +53,7 @@ describe('useCustomActionState', () => {
     expect(result.current.isPending).toBe(false);
   });
 
-  it('should update state with error when action rejects', async () => {
+  test("should update state with error when action rejects", async () => {
     const initialState: State<number> = { data: null, error: null };
 
     const { result } = renderHook(() =>
@@ -71,7 +72,7 @@ describe('useCustomActionState', () => {
     // Check the updated state for error
     expect(result.current.state).toEqual({
       data: null,
-      error: new Error('Action failed'),
+      error: new Error("Action failed"),
     });
     expect(result.current.isPending).toBe(false);
   });
