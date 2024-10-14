@@ -1,5 +1,7 @@
 <h2 id="project-description">Project Description</h2>
-A Next.js project with server action that is invoked using a generic custom hook and consumed by a generic component to show loading , error , success and data
+<p>A Next.js project with server actions invoked using a generic custom hook and consumed by a generic component to display loading, error, success, and data.</p>
+<p>Compare GetPostsLen1, which does not use the custom hook, and GetPostsLen2, which incorporates the custom hook and generic component, to see the power of this design.</p>
+
 
 <h2 id="motivation">Motivation</h2>
 I want to use <code>useActionState</code> for generic error/loading of server action .However, <code>useActionState</code> currently does not work in Next.js, so I created my simplified version.
