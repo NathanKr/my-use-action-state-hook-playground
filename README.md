@@ -64,16 +64,22 @@ return (
 
 <h3>Loading</h3>
 Loading indicarion appears for GetPostLen2
+
+<div>
 <img src='./figs/loading.png'/>
+</div>
 
 <h3>Error</h3>
 Use <code>BAD_POSTS_URL</code> in the server action <code>fetchPostsLength</code> and you will see error indication for <code>GetPostLen2</code>
+<div>
 <img src='./figs/error.png'/>
+</div>
 
 <h3>Success</h3>
 Use <code>GOOD_POSTS_URL</code> in the server action <code>fetchPostsLength</code> and you will see success indication and the data for <code>GetPostLen2</code>
+<div>
 <img src='./figs/success.png'>
-
+</div>
 
 <h2 id="design">Design Pros</h2>
 <ol>
