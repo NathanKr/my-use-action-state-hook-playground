@@ -6,13 +6,10 @@ import ServerActionStateDefault from "./gen-ui/server-action-state-default";
 import { Alert } from "@mui/material";
 
 export default function GetPostsLen2() {
-  const { state, run, isPending } = useCustomActionState<number>(
-    async () => {
-      const length = await fetchPostsLength();
-      return length;
-    },
-    { data: null, error: null }
-  );
+  const { state, run, isPending } = useCustomActionState<number>(async () => {
+    const length = await fetchPostsLength();
+    return length;
+  });
 
   return (
     <div>

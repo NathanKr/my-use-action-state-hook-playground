@@ -1,5 +1,5 @@
 <h2 id="project-description">Project Description</h2>
-A next.js project with server action that is invoked using generic custom hook and consumed by a generic component
+A next.js project with server action that is invoked using generic custom hook and consumed by a generic component to show loading , error , success and data
 
 <h2 id="motivation">Motivation</h2>
 i want to use useActionState check <a href='https://github.com/NathanKr/use-action-state-hook-playground'>use-action-state-hook-playground</a> 
@@ -26,12 +26,11 @@ npm run dev
 <h3>Logic - using useCustomActionState (GetPostsLen2)</h3>
 
 ```tsx
- const [state, run, isPending] = useCustomActionState<number>(
+ const { state, run, isPending } = useCustomActionState<number>(
     async () => {
       const length = await fetchPostsLength();
       return length;
-    },
-    { data: null, error: null }
+    }
   );
 ```
 
@@ -131,6 +130,12 @@ Use GOOD_POSTS_URL in the server action fetchPostsLength and you will see succes
   throw new Error("Something went wrong!");
   ```
   </p>
+  </li>
+  <li>
+    Clarity and Error Prevention
+    <p>
+      <code>useActionState</code> returns an array <code>[state, formAction, isPending]</code>, while <code>useCustomActionState</code> returns an object <code>{ state, run, isPending }</code>. This approach is clearer and less error-prone.
+    </p>
   </li>
 </ol>
 

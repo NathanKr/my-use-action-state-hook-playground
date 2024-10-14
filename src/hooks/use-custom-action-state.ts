@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 // Create the custom hook
 export function useCustomActionState<TData>(
   action: () => Promise<TData>,
-  initialState: State<TData>
+  initialState: State<TData> = { error: null, data: null }
 ): { state: State<TData>; run: () => void; isPending: boolean } {
   const [state, setState] = useState<State<TData>>(initialState);
   const [isPending, startTransition] = useTransition();
