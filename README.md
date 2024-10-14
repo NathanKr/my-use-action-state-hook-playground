@@ -1,10 +1,8 @@
 <h2 id="project-description">Project Description</h2>
-A next.js project with server action that is invoked using generic custom hook and consumed by a generic component to show loading , error , success and data
+A Next.js project with server action that is invoked using a generic custom hook and consumed by a generic component to show loading , error , success and data
 
 <h2 id="motivation">Motivation</h2>
-i want to use useActionState check <a href='https://github.com/NathanKr/use-action-state-hook-playground'>use-action-state-hook-playground</a> 
-for generic error \ loading of server action <a href='https://github.com/NathanKr/generic-handle-server-action-error-and-loading'>generic-handle-server-action-error-and-loading</a> 
-but useActionState does not work in next.js so i want to do my simplified version
+I want to use <code>useActionState</code> for generic error/loading of server action .However, <code>useActionState</code> currently does not work in Next.js, so I created my simplified version.
 
 <h2 id="installation">Installation</h2>
 
@@ -17,7 +15,7 @@ You can use also npm
 <h2 id="usage">Usage</h2>
 
 <h3>Development server</h3>
-Invoke the development server using
+Invoke the development server using :
 
 ```bash
 npm run dev
@@ -56,19 +54,19 @@ return (
 
 <h2 id="demo">Demo</h2>
 <p>Invoke the developmnet server and click on the second button</p>
-<p>GetPostLen1 is a component that show loading without useCustomActionState and without ServerActionStateDefault \ ServerActionStateGen</p>
-<p>GetPostLen2 is a component that show loading with useCustomActionState and with ServerActionStateDefault \ ServerActionStateGen</p>
+<p><strong>GetPostLen1</strong> is a component that show loading without <code>useCustomActionState</code> and without <code>ServerActionStateDefault</code> \ <code>ServerActionStateGen</code></p>
+<p><strong>GetPostLen2</strong> is a component that show loading with <code>useCustomActionState</code> and with <code>ServerActionStateDefault</code> \ <code>ServerActionStateGen</code></p>
 
 <h3>Loading<h3>
 Loading indicarion appears for GetPostLen2
 <img src='./figs/loading.png'/>
 
 <h3>Error<h3>
-Use BAD_POSTS_URL in the server action fetchPostsLength and you will see error indication for GetPostLen2
+Use <code>BAD_POSTS_URL</code> in the server action <code>fetchPostsLength</code> and you will see error indication for <code>GetPostLen2</code>
 <img src='./figs/error.png'/>
 
 <h3>Success<h3>
-Use GOOD_POSTS_URL in the server action fetchPostsLength and you will see success indication and the data for GetPostLen2
+Use <code>GOOD_POSTS_URL</code> in the server action <code>fetchPostsLength</code> and you will see success indication and the data for <code>GetPostLen2</code>
 <img src='./figs/success.png'>
 
 
