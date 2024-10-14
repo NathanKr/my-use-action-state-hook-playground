@@ -35,24 +35,50 @@ npm run dev
   );
 ```
 
-<h3>ui - ServerActionState </h3>
+<h3>ui - ServerActionStateGen </h3>
 
 ```tsx
-    <div>
-      <button onClick={run}>Get posts length</button>
-      <ServerActionStateDefault
-        isPending={isPending}
-        error={state.error}
-        loadingComponent={<p>Loading...</p>}
-        errorComponent={<p>Error: {state.error?.message}</p>}
-        successComponent={
-          <div>
-            <p>Operation successful!</p>
-            {state.data !== null && <p>Posts length: {state.data}</p>}
-          </div>
-        }
-      />
-    </div>
+const ServerActionStateGen: FC<IServerActionStateGen<unknown>> = ({
+  isPending,
+  state,
+  successComponent,
+  loadingComponent,
+  errorComponent,
+  dataOnSuccessCanBeNull
+}) => {
+  const {error,data} = state;
+  if (isPending) return loadingComponent;
+
+  if (error) return errorComponent;
+  
+  if (!dataOnSuccessCanBeNull && !data) return <></>;
+
+  return successComponent; 
+};
+```
+
+<h3>ui - ServerActionStateDefault </h3>
+
+```tsx
+   const ServerActionStateDefault: FC<IServerActionStateDefault<unknown>> = ({
+  isPending,state,successComponent}) => {
+  const { error } = state;
+  const loadingComponent = <DefaultLoading />;
+  const errorComponent = (
+    <DefaultError
+      name={error?.name ?? ""} message={error?.message ?? ""} stack={error?.stack}/>);
+  return (
+    <ServerActionStateGen
+      successComponent={successComponent}
+      errorComponent={errorComponent}
+      loadingComponent={loadingComponent}
+      isPending={isPending}
+      state={state}
+      dataOnSuccessCanBeNull={false} // --- by default data on success can not be null
+    />
+  );
+};
+
 ```
 
 <h2 id="design">Design Pros</h2>
@@ -164,7 +190,7 @@ suppose you have an error in server action - how to handle it ?
 
 <h2 id="points-of-interest">Points of Interest</h2>
 <ul>
-    <li>altough the motivation for this repo is server actions the propsed solution can be used for any action not just server. for example u can use it e,g, to fetch data on the client</li>
+    <li>altough the motivation for this repo is server actions the propsed solution can be used for any action not just server. for example ,you can use it e,g, to fetch data on the client</li>
 </ul>
 
 <h2 id="references">References</h2>

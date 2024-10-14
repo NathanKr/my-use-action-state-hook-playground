@@ -1,4 +1,4 @@
-import { State } from "@/types/types";
+import { State } from "@/types/server-actions";
 import { useState, useTransition } from "react";
 
 // Create the custom hook

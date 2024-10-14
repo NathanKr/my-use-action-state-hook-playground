@@ -1,5 +1,5 @@
-import { IServerActionStateGen } from "@/types/types";
-import { FC} from "react";
+import { IServerActionStateGen } from "@/types/server-actions";
+import { FC } from "react";
 
 const ServerActionStateGen: FC<IServerActionStateGen<unknown>> = ({
   isPending,
@@ -7,16 +7,12 @@ const ServerActionStateGen: FC<IServerActionStateGen<unknown>> = ({
   successComponent,
   loadingComponent,
   errorComponent,
-  dataOnSuccessCanBeNull
+  dataOnSuccessCanBeNull,
 }) => {
-  const {error,data} = state;
-  if (isPending) {
-    return loadingComponent;
-  }
+  const { error, data } = state;
+  if (isPending) return loadingComponent;
 
-  if (error) {
-    return errorComponent;
-  }
+  if (error) return errorComponent;
 
   if (!dataOnSuccessCanBeNull && !data) {
     // --- not ready , i assume here that data must exist

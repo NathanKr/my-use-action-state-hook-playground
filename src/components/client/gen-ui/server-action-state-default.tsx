@@ -1,25 +1,22 @@
-import { IServerActionStateDefault } from "@/types/types";
+import { IServerActionStateDefault } from "@/types/server-actions";
 import { FC } from "react";
 import ServerActionStateGen from "./server-action-state-gen";
-import { Alert, CircularProgress } from "@mui/material";
-
+import DefaultLoading from "./default-loading";
+import DefaultError from "./default-error";
 
 const ServerActionStateDefault: FC<IServerActionStateDefault<unknown>> = ({
   isPending,
   state,
   successComponent,
 }) => {
-  const {error} = state;
-
-  const loadingComponent = (
-    <p>
-      Loading ...
-      <CircularProgress />
-    </p>
-  );
-
+  const { error } = state;
+  const loadingComponent = <DefaultLoading />;
   const errorComponent = (
-    <Alert severity="error">Error: {error?.message}</Alert>
+    <DefaultError
+      name={error?.name ?? ""}
+      message={error?.message ?? ""}
+      stack={error?.stack}
+    />
   );
   return (
     <ServerActionStateGen
@@ -28,7 +25,7 @@ const ServerActionStateDefault: FC<IServerActionStateDefault<unknown>> = ({
       loadingComponent={loadingComponent}
       isPending={isPending}
       state={state}
-      dataOnSuccessCanBeNull = {false} // --- by default data on success can not be null
+      dataOnSuccessCanBeNull={false} // --- by default data on success can not be null
     />
   );
 };
