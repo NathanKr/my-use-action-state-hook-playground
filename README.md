@@ -53,19 +53,19 @@ return (
 ```
 
 <h2 id="demo">Demo</h2>
-<p>Invoke the developmnet server and click on the second button</p>
+<p>Invoke the development server and click on the second button</p>
 <p><strong>GetPostLen1</strong> is a component that show loading without <code>useCustomActionState</code> and without <code>ServerActionStateDefault</code> \ <code>ServerActionStateGen</code></p>
 <p><strong>GetPostLen2</strong> is a component that show loading with <code>useCustomActionState</code> and with <code>ServerActionStateDefault</code> \ <code>ServerActionStateGen</code></p>
 
-<h3>Loading<h3>
+<h3>Loading</h3>
 Loading indicarion appears for GetPostLen2
 <img src='./figs/loading.png'/>
 
-<h3>Error<h3>
+<h3>Error</h3>
 Use <code>BAD_POSTS_URL</code> in the server action <code>fetchPostsLength</code> and you will see error indication for <code>GetPostLen2</code>
 <img src='./figs/error.png'/>
 
-<h3>Success<h3>
+<h3>Success</h3>
 Use <code>GOOD_POSTS_URL</code> in the server action <code>fetchPostsLength</code> and you will see success indication and the data for <code>GetPostLen2</code>
 <img src='./figs/success.png'>
 
@@ -216,7 +216,7 @@ suppose you have an error in server action - how to handle it ?
 <li>if your server action fail and return an error inside data - you have two options
 <ul>
 <li>handle it as data in the ui (in this case data is not only good)</li> 
-<li>create a wrapper around your server action and throw excpetion in case of error (in this case data is kept strickly good)</li> 
+<li>create a wrapper around your server action and throw exceptions in case of error (in this case data is kept strickly good)</li> 
 </ul>
 </li>
 </ul>
