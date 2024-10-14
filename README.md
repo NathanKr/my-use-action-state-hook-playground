@@ -1,3 +1,6 @@
+<h1>Project Name</h1>
+Generic Server Action Error and Loading Handling in Next.js
+
 <h2 id="project-description">Project Description</h2>
 <p>A Next.js project with server actions invoked using a generic custom hook and consumed by a generic component to display loading, error, success, and data.</p>
 <p>Compare GetPostsLen1, which does not use the custom hook, and GetPostsLen2, which incorporates the custom hook and generic component, to see the power of this design.</p>
