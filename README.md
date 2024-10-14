@@ -216,7 +216,7 @@ suppose you have an error in server action - how to handle it ?
 <li>if your server action fail and return an error inside data - you have two options
 <ul>
 <li>handle it as data in the ui (in this case data is not only good)</li> 
-<li>create a wrapper around your server action and throw exceptions in case of error (in this case data is kept strickly good)</li> 
+<li>create a wrapper around your server action and throw exceptions in case of error (in this case data is kept strictly good)</li> 
 </ul>
 </li>
 </ul>
