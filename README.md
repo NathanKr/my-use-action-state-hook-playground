@@ -1,5 +1,3 @@
-
-
 <h2 id="project-description">Project Description</h2>
 A next.js project with server action that is invoked using generic custom hook and consumed by a generic component
 
@@ -42,7 +40,7 @@ npm run dev
 ```tsx
     <div>
       <button onClick={run}>Get posts length</button>
-      <ServerActionState
+      <ServerActionStateDefault
         isPending={isPending}
         error={state.error}
         loadingComponent={<p>Loading...</p>}
@@ -57,32 +55,68 @@ npm run dev
     </div>
 ```
 
-<h2 id="design">Design pros</h2>
+<h2 id="design">Design Pros</h2>
 <ol>
-<li>seperation of concerns
-<p>logic - useCustomActionState</p>
-<p>ui - ServerActionState</p></li>
-<li>seperate action state to two :  error : bad  and data : good</li>
-<li>the server action is invoked at lower priorirty using transition, this will allow input fields to be more responsive</li>
-<li>out of the box handle exception in server action</li>
-<li>use typescript interface for Error : 
+  <li>
+    Flexibility - Separation of Concerns
+    <p>
+      <strong>Logic:</strong> Invokes the action in a safe and low UI priority manner with <code>useCustomActionState</code>.
+    </p>
+    <p>
+      <strong>UI:</strong> Displays indicators (error, loading, success) through <code>ServerActionStateDefault</code> and <code>ServerActionStateGen</code>.
+    </p>
+  </li>
+  <li>
+    Flexibility - Handling Also Null Data
+    <p>
+      Supports data that can be null on success via <code>dataOnSuccessCanBeNull</code> in <code>ServerActionStateGen</code>.
+    </p>
+  </li>
+  <li>
+    Clear Separation of Action States - <code>State&lt;TData&gt;</code>
 
-```ts
-interface Error {
+  <p>
+      <strong>Error:</strong> Clearly separated to handle failures.
+    </p>
+    <p>
+      <strong>Data:</strong> Segregated to manage successful responses. (See more details on error handling <a href='#handle-errors'>here</a>).
+    </p>
+  </li>
+  <li>
+    Responsiveness
+    <p>
+      Server actions are invoked at lower priority using transitions, enhancing responsiveness of input fields.
+    </p>
+  </li>
+  <li>
+    Safety
+    <p>
+      <code>useCustomActionState</code> manages exceptions in server actions out of the box, ensuring robust error handling.
+    </p>
+  </li>
+  <li>
+    Generality
+    <p>
+      Utilizes TypeScript interface for Error :
+      
+  ```ts
+      interface Error {
     name: string;
     message: string;
     stack?: string;
-}
-```
+    }
+  ```
+  
+  This is actually used commonly to throw exceptions:
 
-This is actually used commonly to throw exception 
 
-```ts
-throw new Error("Something went wrong!")
-```
-
-</li>
+  ```ts
+  throw new Error("Something went wrong!");
+  ```
+  </p>
+  </li>
 </ol>
+
 
 <h2>Code - useCustomActionState</h2>
 
@@ -110,14 +144,14 @@ export function useCustomActionState<TData>(
 
 ```
 
-<h2>How to handle error in server action</h2>
+<h2 id='handle-errors'>How to handle errors in server action</h2>
 suppose you have an error in server action - how to handle it ?
 <ul>
-<li>if your server action throw and error than it is handled out ofthe box by this design</li>
+<li>if your server action throw and error than it is handled out of the box by this design</li>
 <li>if your server action fail and return an error inside data - you have two options
 <ul>
 <li>handle it as data in the ui (in this case data is not only good)</li> 
-<li>create a wrapper around your server action and throw excpetion in ase of error (in this case data is kept strickly good)</li> 
+<li>create a wrapper around your server action and throw excpetion in case of error (in this case data is kept strickly good)</li> 
 </ul>
 </li>
 </ul>
@@ -130,7 +164,7 @@ suppose you have an error in server action - how to handle it ?
 
 <h2 id="points-of-interest">Points of Interest</h2>
 <ul>
-    <li>.....</li>
+    <li>altough the motivation for this repo is server actions the propsed solution can be used for any action not just server. for example u can use it e,g, to fetch data on the client</li>
 </ul>
 
 <h2 id="references">References</h2>

@@ -21,4 +21,5 @@ export interface IServerActionStateGen<TData>
   successComponent: ReactElement;
   errorComponent: ReactElement;
   loadingComponent: ReactElement;
+  dataOnSuccessCanBeNull : boolean
 }

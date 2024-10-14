@@ -5,7 +5,7 @@ import { useState, useTransition } from "react";
 export function useCustomActionState<TData>(
   action: () => Promise<TData>,
   initialState: State<TData>
-): {state : State<TData>, run : () => void, isPending : boolean} {
+): { state: State<TData>; run: () => void; isPending: boolean } {
   const [state, setState] = useState<State<TData>>(initialState);
   const [isPending, startTransition] = useTransition();
 
@@ -15,10 +15,16 @@ export function useCustomActionState<TData>(
         const data = await action();
         setState({ data, error: null });
       } catch (error) {
-        setState({ data: null, error: error as Error });
+        setState({
+          data: null,
+          error:
+            error instanceof Error
+              ? error
+              : new Error("An unknown error occurred"),
+        });
       }
     });
   };
 
-  return {state, run, isPending};
+  return { state, run, isPending };
 }

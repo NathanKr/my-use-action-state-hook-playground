@@ -7,6 +7,7 @@ const ServerActionStateGen: FC<IServerActionStateGen<unknown>> = ({
   successComponent,
   loadingComponent,
   errorComponent,
+  dataOnSuccessCanBeNull
 }) => {
   const {error,data} = state;
   if (isPending) {
@@ -17,8 +18,8 @@ const ServerActionStateGen: FC<IServerActionStateGen<unknown>> = ({
     return errorComponent;
   }
 
-  if (!data) {
-    // --- not ready (i assume here that data must exist i.e. minimally return suceess \ fail)
+  if (!dataOnSuccessCanBeNull && !data) {
+    // --- not ready , i assume here that data must exist
     return <></>;
   }
 
