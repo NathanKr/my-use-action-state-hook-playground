@@ -1,11 +1,11 @@
 "use server"
 
-import { BAD_POSTS_URL, GOOD_POSTS_URL } from "@/logic/constants";
+import { GOOD_POSTS_URL } from "@/logic/constants";
 import { pauseMs } from "@/logic/utils";
 
 export async function fetchPostsLength() : Promise<number>{
     await pauseMs(2000); // --- pause just so we can see loader
-    const res = await fetch(BAD_POSTS_URL);
+    const res = await fetch(GOOD_POSTS_URL);
     
     if (!res.ok) {
       throw new Error('Failed to fetch posts');

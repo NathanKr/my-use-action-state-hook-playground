@@ -23,7 +23,7 @@ Invoke the development server using
 npm run dev
 ```
 
-<h3>logic - useCustomActionState</h3>
+<h3>Logic - using useCustomActionState (GetPostsLen2)</h3>
 
 ```tsx
  const [state, run, isPending] = useCustomActionState<number>(
@@ -35,51 +35,43 @@ npm run dev
   );
 ```
 
-<h3>ui - ServerActionStateGen </h3>
+<h3>UI - using ServerActionStateDefault (GetPostsLen2)</h3>
 
 ```tsx
-const ServerActionStateGen: FC<IServerActionStateGen<unknown>> = ({
-  isPending,
-  state,
-  successComponent,
-  loadingComponent,
-  errorComponent,
-  dataOnSuccessCanBeNull
-}) => {
-  const {error,data} = state;
-  if (isPending) return loadingComponent;
-
-  if (error) return errorComponent;
-  
-  if (!dataOnSuccessCanBeNull && !data) return <></>;
-
-  return successComponent; 
-};
-```
-
-<h3>ui - ServerActionStateDefault </h3>
-
-```tsx
-   const ServerActionStateDefault: FC<IServerActionStateDefault<unknown>> = ({
-  isPending,state,successComponent}) => {
-  const { error } = state;
-  const loadingComponent = <DefaultLoading />;
-  const errorComponent = (
-    <DefaultError
-      name={error?.name ?? ""} message={error?.message ?? ""} stack={error?.stack}/>);
-  return (
-    <ServerActionStateGen
-      successComponent={successComponent}
-      errorComponent={errorComponent}
-      loadingComponent={loadingComponent}
-      isPending={isPending}
-      state={state}
-      dataOnSuccessCanBeNull={false} // --- by default data on success can not be null
-    />
+return (
+    <div>
+      <button onClick={run}>Get posts length</button>
+      <ServerActionStateDefault
+        isPending={isPending}
+        state={state}
+        successComponent={
+          <div>
+            <Alert severity="success">Operation successful!</Alert>
+            {<p>Posts length: {state.data}</p>}
+          </div>
+        }
+      />
+    </div>
   );
-};
-
 ```
+
+<h2 id="demo">Demo</h2>
+<p>Invoke the developmnet server and click on the second button</p>
+<p>GetPostLen1 is a component that show loading without useCustomActionState and without ServerActionStateDefault \ ServerActionStateGen</p>
+<p>GetPostLen2 is a component that show loading with useCustomActionState and with ServerActionStateDefault \ ServerActionStateGen</p>
+
+<h3>Loading<h3>
+Loading indicarion appears for GetPostLen2
+<img src='./figs/loading.png'/>
+
+<h3>Error<h3>
+Use BAD_POSTS_URL in the server action fetchPostsLength and you will see error indication for GetPostLen2
+<img src='./figs/error.png'/>
+
+<h3>Success<h3>
+Use GOOD_POSTS_URL in the server action fetchPostsLength and you will see success indication and the data for GetPostLen2
+<img src='./figs/success.png'>
+
 
 <h2 id="design">Design Pros</h2>
 <ol>
@@ -135,7 +127,6 @@ const ServerActionStateGen: FC<IServerActionStateGen<unknown>> = ({
   
   This is actually used commonly to throw exceptions:
 
-
   ```ts
   throw new Error("Something went wrong!");
   ```
@@ -169,6 +160,51 @@ export function useCustomActionState<TData>(
 }
 
 ```
+<h3>ui - ServerActionStateGen </h3>
+
+```tsx
+const ServerActionStateGen: FC<IServerActionStateGen<unknown>> = ({
+  isPending,
+  state,
+  successComponent,
+  loadingComponent,
+  errorComponent,
+  dataOnSuccessCanBeNull
+}) => {
+  const {error,data} = state;
+  if (isPending) return loadingComponent;
+
+  if (error) return errorComponent;
+  
+  if (!dataOnSuccessCanBeNull && !data) return <></>;
+
+  return successComponent; 
+};
+```
+
+<h3>ui - ServerActionStateDefault </h3>
+
+```tsx
+   const ServerActionStateDefault: FC<IServerActionStateDefault<unknown>> = ({
+  isPending,state,successComponent}) => {
+  const { error } = state;
+  const loadingComponent = <DefaultLoading />;
+  const errorComponent = (
+    <DefaultError
+      name={error?.name ?? ""} message={error?.message ?? ""} stack={error?.stack}/>);
+  return (
+    <ServerActionStateGen
+      successComponent={successComponent}
+      errorComponent={errorComponent}
+      loadingComponent={loadingComponent}
+      isPending={isPending}
+      state={state}
+      dataOnSuccessCanBeNull={false} // --- by default data on success can not be null
+    />
+  );
+};
+
+```
 
 <h2 id='handle-errors'>How to handle errors in server action</h2>
 suppose you have an error in server action - how to handle it ?
@@ -182,11 +218,7 @@ suppose you have an error in server action - how to handle it ?
 </li>
 </ul>
 
-<h2 id="demo">Demo</h2>
-.............
-<ul>
-    <li>.........</li>
-</ul>
+
 
 <h2 id="points-of-interest">Points of Interest</h2>
 <ul>
