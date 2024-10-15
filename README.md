@@ -211,6 +211,7 @@ throw new Error("Something went wrong!");
 
 
 <h2>Code - useCustomActionState</h2>
+The following is the code of the custom hooks
 
 ```ts
 export function useCustomActionState<TData>(
@@ -236,6 +237,7 @@ export function useCustomActionState<TData>(
 
 ```
 <h3>ui - ServerActionStateGen </h3>
+The following is the code of a generic component that show error \ loading \ success indications
 
 ```tsx
 const ServerActionStateGen: FC<IServerActionStateGen<unknown>> = ({
@@ -258,6 +260,7 @@ const ServerActionStateGen: FC<IServerActionStateGen<unknown>> = ({
 ```
 
 <h3>ui - ServerActionStateDefault </h3>
+The following is the code of a default component that show error \ loading \ success indications using MUI components
 
 ```tsx
    const ServerActionStateDefault: FC<IServerActionStateDefault<unknown>> = ({
