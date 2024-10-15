@@ -10,6 +10,7 @@ Generic Server Action Error and Loading Handling in Next.js
 I want to use <code>useActionState</code> for generic error/loading of server action .However, <code>useActionState</code> currently does not work in Next.js, so I created my simplified version.
 
 <h2 id="installation">Installation</h2>
+Use the following command to install the project packages
 
 ```bash
 pnpm i
@@ -18,6 +19,7 @@ pnpm i
 You can use also npm
 
 <h2 id="usage">Usage</h2>
+The following lists the usage of this repository :
 
 <h3>Development server</h3>
 Invoke the development server using :
