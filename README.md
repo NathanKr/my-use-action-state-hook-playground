@@ -82,6 +82,67 @@ Use <code>GOOD_POSTS_URL</code> in the server action <code>fetchPostsLength</cod
 </div>
 
 <h2 id="design">Design Pros</h2>
+This design has few benetits as listed below 
+
+<h3>Flexibility - Separation of Concerns</h3>
+<p>
+  <strong>Logic:</strong> Invokes the action in a safe and low UI priority manner with <code>useCustomActionState</code>.
+</p>
+<p>
+  <strong>UI:</strong> Displays indicators (error, loading, success) through <code>ServerActionStateDefault</code> and <code>ServerActionStateGen</code>.
+</p>
+
+<h3>Flexibility - Handling Also Null Data</h3>
+<p>
+  Supports data that can be null on success via <code>dataOnSuccessCanBeNull</code> in <code>ServerActionStateGen</code>.
+</p>
+
+<h3>Clear Separation of Action States - <code>State&lt;TData&gt;</code></h3>
+<p>
+  <strong>Error:</strong> Clearly separated to handle failures.
+</p>
+<p>
+  <strong>Data:</strong> Segregated to manage successful responses. (See more details on error handling <a href='#handle-errors'>here</a>).
+</p>
+
+<h3>Responsiveness</h3>
+<p>
+  Server actions are invoked at lower priority using transitions, enhancing responsiveness of input fields.
+</p>
+
+<h3>Safety</h3>
+<p>
+  <code>useCustomActionState</code> manages exceptions in server actions out of the box, ensuring robust error handling.
+</p>
+
+<h3>Generality</h3>
+<p>
+  Utilizes TypeScript interface for Error:
+</p>
+
+```ts
+  interface Error {
+  name: string;
+  message: string;
+  stack?: string;
+}
+````
+
+<p>
+  This is actually used commonly to throw exceptions:
+</p>
+
+````ts
+throw new Error("Something went wrong!");
+````
+
+<h3>Clarity and Error Prevention</h3>
+<p>
+  <code>useActionState</code> returns an array <code>[state, formAction, isPending]</code>, while <code>useCustomActionState</code> returns an object <code>{ state, run, isPending }</code>. This approach is clearer and less error-prone.
+</p>
+
+
+<!-- <h2 id="design">Design Pros</h2>
 <ol>
   <li>
     Flexibility - Separation of Concerns
@@ -146,7 +207,7 @@ Use <code>GOOD_POSTS_URL</code> in the server action <code>fetchPostsLength</cod
       <code>useActionState</code> returns an array <code>[state, formAction, isPending]</code>, while <code>useCustomActionState</code> returns an object <code>{ state, run, isPending }</code>. This approach is clearer and less error-prone.
     </p>
   </li>
-</ol>
+</ol> -->
 
 
 <h2>Code - useCustomActionState</h2>
