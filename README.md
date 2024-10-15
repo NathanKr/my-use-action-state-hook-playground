@@ -213,7 +213,9 @@ throw new Error("Something went wrong!");
 
 
 <h2>Code - useCustomActionState</h2>
-The following is the code of the custom hooks
+The following is code of selected parts
+
+<h3>logic - useCustomActionState</h3>
 
 ```ts
 export function useCustomActionState<TData>(
